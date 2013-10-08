@@ -108,6 +108,8 @@ var WikiWrapper = function() {
         self.wikiConfig = JSON.stringify(self.wikiOptions);
 
         fs.writeFileSync(path.join(process.env.OPENSHIFT_REPO_DIR, "config.json"), self.wikiConfig);
+
+        self.setupTerminationHandlers();
     };
 
     // Start the wiki
