@@ -8,27 +8,17 @@ Running on OpenShift
 It is simple to create a Federated Wiki site using either the OpenShift command line tools, or the Web 
 Interface.
 
-### Creating using OpenShift site
-
-Create an account at http://openshift.redhat.com/ and, optionally, set up your local machine with the 
-client tools.
-
-Log into //My Apps//, and go to the //Create an Application// tab
-
-
-
-
 ### Creating using the command line
 
 Create an account at http://openshift.redhat.com/ and set up your local machine with the client tools.
 
 Create a node-0.10 application (you can call your application whatever you want)
-```
+```cmd
   rhc app create wiki nodejs-0.10
 ```
 
 Add this upstream Wiki Quickstart repo
-```
+```cmd
   cd wiki
   git remote add upstream -m master https://github.com/paul90/wiki-openshift-quickstart.git
   git pull -s recursive -X theirs upstream master
@@ -36,23 +26,41 @@ Add this upstream Wiki Quickstart repo
 
 #### Configuration
 
-Configure <strong>server.js</strong> file with your information:
+##### Storetype
+
+By default flat files will be used store any edits. The alternatives are: -
+* LevelDB - to enable this you need to uncomment the line, show below, in ```server.js```
+
+```js
+        // self.database = '{"type": "./leveldb"}';
+```
+* MongoDB - details to be added later...
+* Redis - details to be added later...
+
 
 Then push the repo
-```
+```cmd
   git add .
-  git commit -m "my first commmit"
+  git commit -m "wiki configured"
   git push
 ```
 
-N.B. ```git push``` will take a while to complete as it also runs the build process which installs wiki and its dependencies.
+N.B. The first ```git push``` will take a while to complete as it also uses npm to install the wiki package 
+and its dependencies.
 
 That's it, you can now checkout your application at:
-<pre>
+```
   http://wiki-$yournamespace.rhcloud.com
-</pre>
+```
+One of the first things you will want to do is to claim your site.
 
 
+Developer Notes
+---------------
+
+Further information about the Federated Wiki node package can be found at:
+
+https://github.com/WardCunningham/wiki
 
 The OpenShift `nodejs` cartridge documentation can be found at:
 
