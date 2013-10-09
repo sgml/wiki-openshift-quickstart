@@ -34,6 +34,11 @@ By default flat files will be used store any edits. The alternatives are: -
 ```js
         // self.database = '{"type": "./leveldb"}';
 ```
+* MongoDB - to use MongoDB you will need to add the MongoDB cartridge:
+```cmd
+  rhc add-cartridge -app wiki -cartridge mongodb-2.2
+```
+you will also need to uncomment the
 
 Then push the repo
 ```cmd

@@ -42,9 +42,18 @@ var WikiWrapper = function() {
         // Storetype, uncomment as required:
         //   1. flatfiles - no extra config required.
         //   2. leveldb
-        // self.database = '{"type": "./leveldb"}';
-        //   3. mongodb - requires additional OpenShift cartridge
-        // to be added later...
+        /*
+        self.database = '{"type": "./leveldb"}';
+        */
+        //   3. mongodb - requires additional OpenShift cartridge (see README)
+        //              - the connection string will need modifying if connecting with
+        //                a database that is elsewhere.
+        /*
+        if (process.env.OPENSHIFT_MONGODB_DB_URL) {
+          self.connection_string = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" + process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" + process.env.OPENSHIFT_MONGODB_DB_HOST + ':' + process.env.OPENSHIFT_MONGODB_DB_PORT + '/' + process.env.OPENSHIFT_APP_NAME;
+            self.database = '{"type": "./mongodb", "url": "' + self.connection_string + '" }';
+        }
+        */
         //   4. redis - requires custom OpenShift cartridge
         // to be added later...
     };
