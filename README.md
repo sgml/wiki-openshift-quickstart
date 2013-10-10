@@ -34,9 +34,6 @@ By default flat files will be used store any edits. The alternatives are: -
 ```js
         // self.database = '{"type": "./leveldb"}';
 ```
-* MongoDB - details to be added later...
-* Redis - details to be added later...
-
 
 Then push the repo
 ```cmd
