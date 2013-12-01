@@ -20,7 +20,7 @@
 
   "dependencies": {
     "coffee-script": "*",
-    "wiki": "*"
+    "wiki": "0.0.5"
   },
   "devDependencies": {},
   "bundleDependencies": [],
