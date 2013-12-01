@@ -20,7 +20,7 @@
 
   "dependencies": {
     "coffee-script": "*",
-    "wiki": "0.0.5"
+    "wiki": "paul90/wiki#openshift"
   },
   "devDependencies": {},
   "bundleDependencies": [],
