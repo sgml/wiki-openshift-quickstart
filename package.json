@@ -20,6 +20,7 @@
 
   "dependencies": {
     "coffee-script": "*",
+    "coffee-trace": "*",
     "express": "3.4.4",
     "wiki-server": "git://github.com/paul90/wiki#paul90/refactor",
     "wiki-client": "git://github.com/paul90/wiki-client#paul90/refactor",
