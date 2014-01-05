@@ -32,7 +32,23 @@ By default flat files will be used store any edits. The alternatives are: -
 * LevelDB - to enable this you need to uncomment the line, show below, in ```server.js```
 
 ```js
-        // self.database = '{"type": "./leveldb"}';
+        /*
+        self.database = '{"type": "./leveldb"}';
+        */
+```
+* MongoDB - to use MongoDB you will need to add the MongoDB cartridge:
+```cmd
+  rhc add-cartridge -app wiki -cartridge mongodb-2.2
+```
+you will also need to uncomment the lines, show below, in ```server.js```
+
+```js
+        /*
+        if (process.env.OPENSHIFT_MONGODB_DB_URL) {
+          self.connection_string = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" + process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" + process.env.OPENSHIFT_MONGODB_DB_HOST + ':' + process.env.OPENSHIFT_MONGODB_DB_PORT + '/' + process.env.OPENSHIFT_APP_NAME;
+            self.database = '{"type": "./mongodb", "url": "' + self.connection_string + '" }';
+        }
+        */
 ```
 
 Then push the repo
@@ -42,8 +58,8 @@ Then push the repo
   git push
 ```
 
-N.B. The first ```git push``` will take a while to complete as it also uses npm to install the wiki package 
-and its dependencies.
+N.B. The first ```git push``` will take a while to complete as it also uses npm to install 
+the wiki package with all its dependencies.
 
 That's it, you can now checkout your application at:
 ```

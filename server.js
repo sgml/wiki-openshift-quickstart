@@ -42,9 +42,18 @@ var WikiWrapper = function() {
         // Storetype, uncomment as required:
         //   1. flatfiles - no extra config required.
         //   2. leveldb
-        // self.database = '{"type": "./leveldb"}';
-        //   3. mongodb - requires additional OpenShift cartridge
-        // to be added later...
+        /*
+        self.database = '{"type": "./leveldb"}';
+        */
+        //   3. mongodb - requires additional OpenShift cartridge (see README)
+        //              - the connection string will need modifying if connecting with
+        //                a database that is elsewhere.
+        /*
+        if (process.env.OPENSHIFT_MONGODB_DB_URL) {
+          self.connection_string = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" + process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" + process.env.OPENSHIFT_MONGODB_DB_HOST + ':' + process.env.OPENSHIFT_MONGODB_DB_PORT + '/' + process.env.OPENSHIFT_APP_NAME;
+            self.database = '{"type": "./mongodb", "url": "' + self.connection_string + '" }';
+        }
+        */
         //   4. redis - requires custom OpenShift cartridge
         // to be added later...
     };
@@ -118,7 +127,7 @@ var WikiWrapper = function() {
 
         // I'm sure there must be a better way of doing this, but it works and that is good enough
 
-        var wikiCli = path.join(process.env.OPENSHIFT_REPO_DIR, 'node_modules/wiki/lib/cli');
+        var wikiCli = path.join(process.env.OPENSHIFT_REPO_DIR, 'node_modules/wiki-server/lib/cli');
         require(wikiCli);
     };
 
