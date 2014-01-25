@@ -56,9 +56,7 @@
     "wiki-plugin-reference": "0.1",
     "wiki-plugin-report": "0.1",
     "wiki-plugin-rollup": "0.1",
-    "wiki-plugin-scatter": "0.1",
-    "wiki-plugin-twadio": "0.1",
-    "wiki-plugin-txtzyme": "0.1"
+    "wiki-plugin-scatter": "0.1"
   },
   "devDependencies": {},
   "bundleDependencies": [],
