@@ -1,6 +1,6 @@
 {
   "name": "Wiki-on-OpenShift",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A Federated Wiki Server on OpenShift",
   "keywords": [
     "OpenShift",
@@ -22,8 +22,8 @@
     "coffee-script": "*",
     "coffee-trace": "*",
     "express": "3.4.4",
-    "wiki-server": "git://github.com/paul90/wiki#paul90/refactor",
-    "wiki-client": "git://github.com/paul90/wiki-client#paul90/refactor",
+    "wiki-server": "0.1",
+    "wiki-client": "0.1",
     "wiki-plugin-activity": "0.1",
     "wiki-plugin-bars": "0.1",
     "wiki-plugin-bytebeat": "0.1",
@@ -56,9 +56,7 @@
     "wiki-plugin-reference": "0.1",
     "wiki-plugin-report": "0.1",
     "wiki-plugin-rollup": "0.1",
-    "wiki-plugin-scatter": "0.1",
-    "wiki-plugin-twadio": "0.1",
-    "wiki-plugin-txtzyme": "0.1"
+    "wiki-plugin-scatter": "0.1"
   },
   "devDependencies": {},
   "bundleDependencies": [],
