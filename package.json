@@ -1,6 +1,6 @@
 {
   "name": "Wiki-on-OpenShift",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A Federated Wiki Server on OpenShift",
   "keywords": [
     "OpenShift",
@@ -19,7 +19,7 @@
   },
 
   "dependencies": {
-    "coffee-script": "*",
+    "coffee-script": "1.6.3",
     "coffee-trace": "*",
     "express": "3.4.4",
     "wiki-server": "0.1",
