@@ -1,6 +1,6 @@
 {
   "name": "Wiki-on-OpenShift",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A Federated Wiki Server on OpenShift",
   "keywords": [
     "OpenShift",
