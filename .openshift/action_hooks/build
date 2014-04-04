@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# This is a simple build script. It will execute while your application is stopped
+# before the deploy step.
+
+# if update marker exists, then we will update the dependent packages.
+if [ -f "${OPENSHIFT_REPO_DIR}"/.openshift/markers/update ]; then
+	echo "  - Updating dependencies ... "
+	echo
+	(cd "${OPENSHIFT_REPO_DIR}"; export TMPDIR = "/tmp"; npm update)
+	rm "${OPENSHIFT_REPO_DIR}"/.openshift/markers/update
+fi
+
