@@ -60,7 +60,7 @@ var WikiWrapper = function() {
         // Wiki Farm
 
         /*
-        self.farm = TRUE;
+        self.farm = true;
         self.farmPort = 20000;
         */
 
