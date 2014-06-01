@@ -1,6 +1,6 @@
 {
   "name": "Wiki-on-OpenShift",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "A Federated Wiki Server on OpenShift",
   "keywords": [
     "OpenShift",
@@ -10,14 +10,12 @@
   ],
   "author": {
     "name": "Paul Rodwell",
-    "url":  "http://wiki-paul90.rhcloud.com/"
+    "url": "http://wiki-paul90.rhcloud.com/"
   },
-
   "engines": {
     "node": ">= 0.10.0",
     "npm": ">= 1.0.0"
   },
-
   "dependencies": {
     "coffee-script": "1.6.3",
     "coffee-trace": "*",
@@ -60,7 +58,6 @@
   },
   "devDependencies": {},
   "bundleDependencies": [],
-
   "private": true,
   "main": "server.js"
 }
