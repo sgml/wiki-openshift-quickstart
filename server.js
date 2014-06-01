@@ -10,7 +10,7 @@ var path = require('path');
 // required as we will be requiring cli.coffee from the wiki package to run the wiki
 require('coffee-script');
 
-// The wiki wrapper just uses the OpenShift environment variables to create a config.json file, 
+// The wiki wrapper just uses the OpenShift environment variables to create a config.json file,
 // and the starts the wiki.
 
 var WikiWrapper = function() {
@@ -25,7 +25,7 @@ var WikiWrapper = function() {
         self.port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
 
         if (typeof self.ipaddress === "undefined") {
-            // Log errors but continue with 127.0.0.1 - to 
+            // Log errors but continue with 127.0.0.1 - to
             // allow us to run/test locally.
             console.warn('No OPENSHIFT_NODEJS_IP var, using 127.0.0.1');
             self.ipaddress = "127.0.0.1";
@@ -56,6 +56,14 @@ var WikiWrapper = function() {
         */
         //   4. redis - requires custom OpenShift cartridge
         // to be added later...
+
+        // Wiki Farm
+
+        /*
+        self.farm = TRUE;
+        self.farmPort = 20000;
+        */
+
     };
 
     // terminator and setupTerminationHandlers are straight from the sample app...
@@ -113,6 +121,12 @@ var WikiWrapper = function() {
             self.wikiOptions.database = self.database
         }
 
+        // if using farm mode, add farm and farmport to options
+        if (!(typeof self.farm === "undefined")) {
+          self.wikiOptions.farm = self.farm;
+          self.wikiOptions.farmPort = self.farmPort;
+        }
+
         // convert to string, and save it
         self.wikiConfig = JSON.stringify(self.wikiOptions);
 
@@ -139,4 +153,3 @@ var WikiWrapper = function() {
 var zapp = new WikiWrapper();
 zapp.initialize();
 zapp.start();
-
