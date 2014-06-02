@@ -30,3 +30,10 @@ if [ -f "${OPENSHIFT_REPO_DIR}"/package.json ]; then
    (cd "${OPENSHIFT_REPO_DIR}"; export TMPDIR="/tmp"; npm install -d)
 fi
 
+# if update marker exists, then we will update the dependent packages.
+if [ -f "${OPENSHIFT_REPO_DIR}"/.openshift/markers/update ]; then
+	echo "  - Updating dependencies ... "
+	echo
+	(cd "${OPENSHIFT_REPO_DIR}"; export TMPDIR = "/tmp"; npm update)
+	rm "${OPENSHIFT_REPO_DIR}"/.openshift/markers/update
+fi
