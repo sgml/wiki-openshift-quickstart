@@ -1,63 +1,35 @@
 {
-  "name": "Wiki-on-OpenShift",
-  "version": "0.2.4",
-  "description": "A Federated Wiki Server on OpenShift",
+  "name": "nodejs-Custom-Version-Sample",
+  "version": "1.0.1",
+  "description": "OpenShift Node.js Custom Version Sample Application",
   "keywords": [
     "OpenShift",
     "Node.js",
-    "Federated Wiki",
-    "wiki"
+    "application",
+    "openshift"
   ],
   "author": {
-    "name": "Paul Rodwell",
-    "url": "http://wiki-paul90.rhcloud.com/"
+    "name": "ramr",
+    "email": "ramr@example.org",
+    "url":  "http://www.openshift.com/"
   },
+  "homepage": "http://www.openshift.com/",
+  "repository": {
+    "type": "git",
+    "url": "https://gitub.com/ramr/nodejs-custom-version-openshift"
+  },
+
   "engines": {
-    "node": ">= 0.10.0",
+    "node": ">= 0.6.0",
     "npm": ">= 1.0.0"
   },
+
   "dependencies": {
-    "coffee-script": "1.6.3",
-    "coffee-trace": "*",
-    "express": "3.4.4",
-    "wiki-server": "0.1",
-    "wiki-client": "0.2",
-    "wiki-plugin-activity": "0.1.0 - 0.2.9999",
-    "wiki-plugin-bars": "0.1.0 - 0.2.9999",
-    "wiki-plugin-bytebeat": "0.1.0 - 0.2.9999",
-    "wiki-plugin-calculator": "0.1.0 - 0.2.9999",
-    "wiki-plugin-calendar": "0.1.0 - 0.2.9999",
-    "wiki-plugin-changes": "0.1.0 - 0.2.9999",
-    "wiki-plugin-chart": "0.2",
-    "wiki-plugin-code": "0.1.0 - 0.2.9999",
-    "wiki-plugin-data": "0.1.0 - 0.2.9999",
-    "wiki-plugin-efficiency": "0.1.0 - 0.2.9999",
-    "wiki-plugin-factory": "0.1.0 - 0.2.9999",
-    "wiki-plugin-favicon": "0.1.0 - 0.2.9999",
-    "wiki-plugin-federatedwiki": "0.1.0 - 0.2.9999",
-    "wiki-plugin-future": "0.1.0 - 0.2.9999",
-    "wiki-plugin-force": "0.1.0 - 0.2.9999",
-    "wiki-plugin-image": "0.1.0 - 0.2.9999",
-    "wiki-plugin-line": "0.1.0 - 0.2.9999",
-    "wiki-plugin-linkmap": "0.1.0 - 0.2.9999",
-    "wiki-plugin-logwatch": "0.1.0 - 0.2.9999",
-    "wiki-plugin-map": "0.1.0 - 0.2.9999",
-    "wiki-plugin-mathjax": "0.1.0 - 0.2.9999",
-    "wiki-plugin-metabolism": "0.1.0 - 0.2.9999",
-    "wiki-plugin-method": "0.1.0 - 0.2.9999",
-    "wiki-plugin-pagefold": "0.1.0 - 0.2.9999",
-    "wiki-plugin-paragraph": "0.1.0 - 0.2.9999",
-    "wiki-plugin-parse": "0.1.0 - 0.2.9999",
-    "wiki-plugin-pushpin": "0.1.0 - 0.2.9999",
-    "wiki-plugin-radar": "0.1.0 - 0.2.9999",
-    "wiki-plugin-reduce": "0.1.0 - 0.2.9999",
-    "wiki-plugin-reference": "0.1.0 - 0.2.9999",
-    "wiki-plugin-report": "0.1.0 - 0.2.9999",
-    "wiki-plugin-rollup": "0.1.0 - 0.2.9999",
-    "wiki-plugin-scatter": "0.1.0 - 0.2.9999"
+    "express": "*"
   },
   "devDependencies": {},
   "bundleDependencies": [],
+
   "private": true,
   "main": "server.js"
 }
