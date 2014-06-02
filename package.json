@@ -20,7 +20,7 @@
     "coffee-script": "1.6.3",
     "coffee-trace": "*",
     "express": "3.4.4",
-    "wiki-server": "0.1.0 - 0.2.9999",
+    "wiki-server": "0.1",
     "wiki-client": "0.2",
     "wiki-plugin-activity": "0.1.0 - 0.2.9999",
     "wiki-plugin-bars": "0.1.0 - 0.2.9999",
