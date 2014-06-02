@@ -7,6 +7,9 @@ This git repository helps you to set-up the node.js version of the Smallest Fede
 It is simple to create a Federated Wiki site using either the OpenShift command line tools, or the Web
 Interface.
 
+We use [https://github.com/ramr/nodejs-custom-version-openshift](custom Node.js version quickstart) to
+control the version of node.js, and associated npm version, as the OpenShift version is not always up to date.
+
 ### Creating using the command line
 
 Create an account at http://openshift.redhat.com/ and set up your local machine with the client tools.
