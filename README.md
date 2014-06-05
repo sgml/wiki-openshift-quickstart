@@ -49,7 +49,7 @@ can be achieved by adding an `update` marker, adding it to the repository, and p
 The presence of the `update` marker is detected by the `build` action hook, and `npm update` is run.
 
 ```cmd
-  touch .openshift/marker/update
+  touch .openshift/markers/update
   git add .
   git commit -m "create update marker"
   git push
