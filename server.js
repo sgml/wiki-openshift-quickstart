@@ -139,10 +139,7 @@ var WikiWrapper = function() {
     self.start = function() {
         // start the wiki...
 
-        // I'm sure there must be a better way of doing this, but it works and that is good enough
-
-        var wikiCli = path.join(process.env.OPENSHIFT_REPO_DIR, 'node_modules/wiki-server/lib/cli');
-        require(wikiCli);
+        require('./cli');
     };
 
 };

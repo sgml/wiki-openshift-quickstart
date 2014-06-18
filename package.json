@@ -17,10 +17,11 @@
     "npm": ">= 1.0.0"
   },
   "dependencies": {
+    "bouncy": "3.2",
     "coffee-script": "1.6.3",
     "coffee-trace": "*",
     "express": "3.4.4",
-    "wiki-server": "0.1",
+    "wiki-server": "0.2",
     "wiki-client": "0.2",
     "wiki-plugin-activity": "0.1.0 - 0.2.9999",
     "wiki-plugin-bars": "0.1.0 - 0.2.9999",
@@ -54,7 +55,8 @@
     "wiki-plugin-reference": "0.1.0 - 0.2.9999",
     "wiki-plugin-report": "0.1.0 - 0.2.9999",
     "wiki-plugin-rollup": "0.1.0 - 0.2.9999",
-    "wiki-plugin-scatter": "0.1.0 - 0.2.9999"
+    "wiki-plugin-scatter": "0.1.0 - 0.2.9999",
+    "wiki-plugin-video": "0.0"
   },
   "devDependencies": {},
   "bundleDependencies": [],
