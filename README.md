@@ -80,24 +80,26 @@ in the merge.
 ### Storetype
 
 By default flat files will be used store any edits. The alternatives are: -
-* LevelDB - to enable this you need to uncomment the line, shown below, in `server.js`
+* LevelDB - modify `package.json` to include `    "wiki-storage-leveldb": "*",` in the dependencies, and
+uncomment the line, shown below, in `server.js`
 
 ```js
         /*
-        self.database = '{"type": "./leveldb"}';
+        self.database = '{"type": "leveldb"}';
         */
 ```
 * MongoDB - to use MongoDB you will need to add the MongoDB cartridge:
 ```cmd
   rhc add-cartridge -app wiki -cartridge mongodb-2.2
 ```
-you will also need to uncomment the lines, shown below, in `server.js`
+
+modify `package.json` to include the `  "wiki-storage-mongodb": "*",` in the dependencies, and uncomment the lines, shown below, in `server.js`
 
 ```js
         /*
         if (process.env.OPENSHIFT_MONGODB_DB_URL) {
           self.connection_string = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" + process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" + process.env.OPENSHIFT_MONGODB_DB_HOST + ':' + process.env.OPENSHIFT_MONGODB_DB_PORT + '/' + process.env.OPENSHIFT_APP_NAME;
-            self.database = '{"type": "./mongodb", "url": "' + self.connection_string + '" }';
+            self.database = '{"type": "mongodb", "url": "' + self.connection_string + '" }';
         }
         */
 ```
