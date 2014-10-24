@@ -9,6 +9,7 @@ var path = require('path');
 
 // required as we will be requiring cli.coffee from the wiki package to run the wiki
 require('coffee-script');
+require('coffee-script/register')
 
 // The wiki wrapper just uses the OpenShift environment variables to create a config.json file,
 // and the starts the wiki.
@@ -64,6 +65,9 @@ var WikiWrapper = function() {
         self.farmPort = 20000;
         */
 
+        // Upload Limit
+        self.uploadLimit = '5mb'
+
     };
 
     // terminator and setupTerminationHandlers are straight from the sample app...
@@ -113,7 +117,8 @@ var WikiWrapper = function() {
             url: self.url,
             port: self.port,
             data: self.data,
-            host: self.ipaddress
+            host: self.ipaddress,
+            uploadLimit: self.uploadLimit
         };
 
         // if using anything other than flatfiles, add database to options
