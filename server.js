@@ -9,6 +9,7 @@ var path = require('path');
 
 // required as we will be requiring cli.coffee from the wiki package to run the wiki
 require('coffee-script');
+require('coffee-script/register')
 
 // The wiki wrapper just uses the OpenShift environment variables to create a config.json file,
 // and the starts the wiki.
@@ -43,7 +44,7 @@ var WikiWrapper = function() {
         //   1. flatfiles - no extra config required.
         //   2. leveldb
         /*
-        self.database = '{"type": "./leveldb"}';
+        self.database = '{"type": "leveldb"}';
         */
         //   3. mongodb - requires additional OpenShift cartridge (see README)
         //              - the connection string will need modifying if connecting with
@@ -51,7 +52,7 @@ var WikiWrapper = function() {
         /*
         if (process.env.OPENSHIFT_MONGODB_DB_URL) {
           self.connection_string = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" + process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" + process.env.OPENSHIFT_MONGODB_DB_HOST + ':' + process.env.OPENSHIFT_MONGODB_DB_PORT + '/' + process.env.OPENSHIFT_APP_NAME;
-            self.database = '{"type": "./mongodb", "url": "' + self.connection_string + '" }';
+            self.database = '{"type": "mongodb", "url": "' + self.connection_string + '" }';
         }
         */
         //   4. redis - requires custom OpenShift cartridge
@@ -63,6 +64,9 @@ var WikiWrapper = function() {
         self.farm = true;
         self.farmPort = 20000;
         */
+
+        // Upload Limit
+        self.uploadLimit = '5mb'
 
     };
 
@@ -113,7 +117,8 @@ var WikiWrapper = function() {
             url: self.url,
             port: self.port,
             data: self.data,
-            host: self.ipaddress
+            host: self.ipaddress,
+            uploadLimit: self.uploadLimit
         };
 
         // if using anything other than flatfiles, add database to options
