@@ -90,7 +90,7 @@ uncomment the line, shown below, in `server.js`
 ```
 * MongoDB - to use MongoDB you will need to add the MongoDB cartridge:
 ```cmd
-  rhc add-cartridge -app wiki -cartridge mongodb-2.2
+  rhc add-cartridge --app wiki --cartridge mongodb-2.4
 ```
 
 modify `package.json` to include the `  "wiki-storage-mongodb": "*",` in the dependencies, and uncomment the lines, shown below, in `server.js`
