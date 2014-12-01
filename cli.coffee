@@ -37,10 +37,6 @@ argv = optimist
     alias     : 'f'
     describe  : 'Turn on the farm?'
   )
-  .options('farmPort',
-    alias     : 'F'
-    describe  : 'Port to start farm servers on.'
-  )
   .options('home',
     describe  : 'The page to go to instead of index.html'
   )
@@ -53,6 +49,16 @@ argv = optimist
   )
   .options('database',
     describe  : 'JSON object for database config'
+  )
+  .options('neighbors',
+    describe  : 'comma separated list of neighbor sites to seed'
+  )
+  .options('autoseed',
+    describe  : 'Seed all sites in a farm to each other site in the farm.'
+    boolean   : true
+  )
+  .options('uploadLimit',
+    describe  : 'Set the upload size limit, limits the size page content items, and pages that can be forked'
   )
   .options('test',
     boolean   : true
@@ -78,7 +84,6 @@ config = cc(argv,
   'config.json',
   path.join(__dirname, '..', 'config.json'),
   cc.env('wiki_'),
-    farmPort: 40000
     port: 3000
     root: path.dirname(require.resolve('wiki-server'))
     home: 'welcome-visitors'
@@ -107,4 +112,8 @@ else if config.farm
   console.log('Wiki starting in Farm mode, navigate to a specific server to start it.')
   farm(config)
 else
-  server(config)
+  app = server(config)
+  app.on 'owner-set', (e) ->
+    serv = app.listen app.startOpts.port, app.startOpts.host
+    console.log "Smallest Federated Wiki server listening on", app.startOpts.port, "in mode:", app.settings.env
+    app.emit 'running-serv', serv
