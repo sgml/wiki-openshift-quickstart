@@ -55,6 +55,21 @@ The presence of the `update` marker is detected by the `build` action hook, and 
   git push
 ```
 
+### Updating the version of Node.js
+
+To select the version of Node.js that you want to run, just edit or add a version to the .openshift/markers/NODEJS_VERSION file.
+
+Example: To install Node.js version x.y.z, you would run (replacing x.y.z with version you want to use):
+
+```cmd
+  echo x.y.z >> .openshift/markers/NODEJS_VERSION
+  git add .
+  git commit -m "updated to use node.js x.y.z"
+  git push
+```
+
+N.B. Currently this only works with Node.js version.
+
 
 ### Pulling in changes to wiki-openshift-quickstart
 
