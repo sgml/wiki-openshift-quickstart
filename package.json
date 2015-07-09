@@ -60,6 +60,7 @@
     "wiki-plugin-scatter": "0.1.0 - 0.2.9999",
     "wiki-plugin-video": "0.1"
   },
+  "license": "MIT",
   "devDependencies": {},
   "bundleDependencies": [],
   "private": true,
