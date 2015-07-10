@@ -4,11 +4,19 @@ This git repository helps you to set-up the node.js version of the Smallest Fede
 
 ## Running on OpenShift
 
-It is simple to create a Federated Wiki site using either the OpenShift command line tools, or the Web
-Interface.
+It is simple to create a Federated Wiki site using either the OpenShift command line tools, or the Web Interface.
 
-We use [https://github.com/ramr/nodejs-custom-version-openshift](custom Node.js version quickstart) to
-control the version of node.js, and associated npm version, as the OpenShift version is not always up to date.
+### Creating using the OpenShift Web Interface
+
+Create an account at http://openshift.redhat.com/, and (optionaly) set up your local machine with the client tools. *The client tools will be needed to maintain your install of Federated Wiki, so they could be installed later.*
+
+[OpenShift web creation](https://openshift.redhat.com/app/console/application_types/custom?cartridges[]=nodejs-0.10&initial_git_url=https%3A%2F%2Fgithub.com/paul90/wiki-openshift-quickstart.git&name=wiki) will start the creation process.
+
+You will need to:-
+
+* choose an initial public domain name, this uses an application and user part. You can add your own domain name later.
+* depending on your account choose a gear size and region. A small gear is plenty to get started.
+* press `Create Application`. This may take a while. The next page will give you details of the on `Making Code Changes` and `Manage your app`.
 
 ### Creating using the command line
 
@@ -39,6 +47,10 @@ That's it, you can now checkout your application at:
   http://wiki-$yournamespace.rhcloud.com
 ```
 One of the first things you will want to do is to claim your site.
+
+## Adding Wiki sites to the Farm
+
+Wiki sites are added to the farm by adding a custom domain, see [using a custom domain](https://developers.openshift.com/en/managing-domains-ssl.html#using-a-custom-domain).
 
 ## Keeping up to date
 
@@ -73,11 +85,10 @@ N.B. Currently this only works with Node.js version.
 
 ### Pulling in changes to wiki-openshift-quickstart
 
-The upstream repository will be updated when there is a change to either OpenShift, or Federated Wiki that requires the
-quickstart to be modified.
+The upstream repository will be updated when there is a change to either OpenShift, or Federated Wiki that requires the quickstart to be modified.
 
 To update, you will need to pull in the upstream changes, and merge them. You will also want to review any local
-changes, and ensure no additional steps are required.
+changes, and review to ensure no extra steps are required. See [Changes]()
 
 At its simplest all that is required is, though if you have made any configuration changes, e.g. configured a storetype,
 you will want to check these are still in effect before doing the `git push` to update OpenShift:
@@ -94,7 +105,7 @@ in the merge.
 
 ### Storetype
 
-By default flat files will be used store any edits. The alternatives are: -
+By default flat files will be used store any edits. An alternative is LevelDB: -
 * LevelDB - modify `package.json` to include `    "wiki-storage-leveldb": "*",` in the dependencies, and
 uncomment the line, shown below, in `server.js`
 
@@ -103,36 +114,21 @@ uncomment the line, shown below, in `server.js`
         self.database = '{"type": "leveldb"}';
         */
 ```
-* MongoDB - to use MongoDB you will need to add the MongoDB cartridge:
-```cmd
-  rhc add-cartridge --app wiki --cartridge mongodb-2.4
-```
 
-modify `package.json` to include the `  "wiki-storage-mongodb": "*",` in the dependencies, and uncomment the lines, shown below, in `server.js`
-
-```js
-        /*
-        if (process.env.OPENSHIFT_MONGODB_DB_URL) {
-          self.connection_string = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" + process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" + process.env.OPENSHIFT_MONGODB_DB_HOST + ':' + process.env.OPENSHIFT_MONGODB_DB_PORT + '/' + process.env.OPENSHIFT_APP_NAME;
-            self.database = '{"type": "mongodb", "url": "' + self.connection_string + '" }';
-        }
-        */
-```
 
 ### Farm Mode
 
-To enable Farm Mode you will need to uncomment the lines, shown below, in `server.js`
+Farm mode is now enabled by default, see below how to disable if required.
 
-```js
-/*
-self.farm = TRUE;
-self.farmPort = 20000;
-*/
-```
+#### How to Disable Farm Mode
 
-**N.B.** To create wikis in the farm you will need to use the OpenShift tools to create aliases.
+To disable Farm Mode you will need to:-
 
-**N.B.** The MongoDB storetype is thought not to be tested with Farm Mode, and will probably not work.
+1. Backup your sites pages and status, see below.
+2. In `server.js` disable farm mode by changing `self.farm = TRUE;` to `self.farm = FALSE;`.
+3. If you have already created content within the farm, move the page and status directories to the expected location. In farm mode each wiki will have a `pages` and `status` directory in the `$OPENSHIFT_DATA_DIR/{FQDN}` directory. You will need to move these up one level to `$OPENSHIFT_DATA_DIR`.
+
+If you had created pages in multiple wikis within the farm and are not merging the sites you can create those wikis elsewhere by restoring the backup files in their new location.
 
 ### Pushing configuration changes to OpenShift
 
@@ -154,28 +150,30 @@ One of the first things you will want to do is to claim your site.
 
 ## Backing Up Your Data
 
-The directories listed below can be copied using `sftp`. You could alternatively used `snapshots` but these
-save the entire application, rather than just the data, so create a bigger archive.
+There are a number of strategies for backing up your data:-
+
+1. OpenShift applications can be backed up using the snapshot command in their command line tool, see [Application Backup and Restore](https://developers.openshift.com/en/managing-backing-up-applications.html).
+2. The Federated Wiki software will create an export file containing all the pages within a site, downloaded by visiting `/system/export.json`, see [Save Your Wiki](forage.ward.fed.wiki.org/save-your-wiki.html).
+3. The directories containing the site's data can be copied `sftp`. See below for data locations.
+
+## Data Locations
+
+Below `{FQDN}` is the alias used to access the wiki.
 
 ### Flat Files
 
-Your data is stored in `$OPENSHIFT_DATA_DIR/pages` and `$OPENSHIFT_DATA_DIR/status`.
+Your data is stored in `$OPENSHIFT_DATA_DIR/{FQDN}/pages` and `$OPENSHIFT_DATA_DIR/{FQDN}/status`.
 
 ### LevelDB
 
-Your data is stored in `$OPENSHIFT_DATA_DIR/leveldb` and `$OPENSHIFT_DATA_DIR/status`. If you created any
-pages before starting to use LevelDB, you will also want to save `$OPENSHIFT_DATA_DIR/pages` as old pages will
+Your data is stored in `$OPENSHIFT_DATA_DIR/{FQDN}/leveldb` and `$OPENSHIFT_DATA_DIR/{FQDN}/status`. If you created any
+pages before starting to use LevelDB, you will also want to save `$OPENSHIFT_DATA_DIR/{FQDN}/pages` as old pages will
 only get saved to LevelDB when they are modified.
 
-### MongoDB
 
-Your data can be backed up using the MongoDB tools, specifically `mongodump`. There is some documentation
-on OpenShift.
+### If you disable Farm Mode
 
-### Farm Mode
-
-Each wiki in a farm will have its data saved in a separate sub-directory `$OPENSHIFT_DATA_DIR/{FQDN}`.
-Where `{FQDN}` is the alias used to access the wiki.
+If you disable Farm Mode, you will only have a single wiki, remove `/{FQDN}` from the locations above for the locations of the sites data.
 
 
 ## Developer Notes
@@ -187,3 +185,5 @@ https://github.com/fedwiki/wiki-node
 The OpenShift `nodejs` cartridge documentation can be found at:
 
 http://openshift.github.io/documentation/oo_cartridge_guide.html#nodejs
+
+We use [https://github.com/ramr/nodejs-custom-version-openshift](custom Node.js version quickstart) to control the version of node.js, so we can control the version being used.
