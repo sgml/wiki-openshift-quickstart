@@ -60,10 +60,7 @@ var WikiWrapper = function() {
 
         // Wiki Farm
 
-        /*
         self.farm = true;
-        self.farmPort = 20000;
-        */
 
         // Upload Limit
         self.uploadLimit = '5mb'

@@ -4,11 +4,11 @@
 #
 
 
-#  Returns the configured Node version - defaults to 0.8.24.
+#  Returns the configured Node version - defaults to 0.10.39.
 function get_node_version() {
    marker="$OPENSHIFT_REPO_DIR/.openshift/markers/NODEJS_VERSION"
    nodejs_ver=$(egrep -v "^\s*#.*" "$marker" | egrep -v "^\s*$" | tail -1)
-   echo "${nodejs_ver:-"0.8.24"}"
+   echo "${nodejs_ver:-"0.10.39"}"
 
 }  #  End of function  get_node_version.
 
@@ -23,7 +23,11 @@ function get_node_install_dir() {
 #  Returns the path to the npm binary.
 function get_npm_bin_path() {
    ver=${1:-"$(get_node_version)"}
-   echo "$(get_node_install_dir)/node-v$ver-linux-x64/bin"
+   if [ -d "$(get_node_install_dir)/node-v$ver-linux-x64/bin" ]; then
+     echo "$(get_node_install_dir)/node-v$ver-linux-x64/bin"
+   elif [ -d "$(get_node_install_dir)/iojs-v$ver-linux-x64/bin" ]; then
+     echo "$(get_node_install_dir)/iojs-v$ver-linux-x64/bin"
+   fi
 
 }  #  End of function  get_npm_bin_path.
 
@@ -53,28 +57,31 @@ function get_node_tmp_dir() {
 function _install_nodejs() {
    ver=${1:-"$(get_node_version)"}
 
-   # Sample download links:
-   #    http://nodejs.org/dist/v0.8.24/node-v0.8.24-linux-x64.tar.gz
-   #    http://nodejs.org/dist/v0.10.10/node-v0.10.10-linux-x64.tar.gz
-   zfile="node-v${ver}-linux-x64.tar.gz"
-   zlink="http://nodejs.org/dist/v${ver}/${zfile}"
+   zfile="${ver}-linux-x64.tgz"
 
+   zfile="v${ver}-linux-x64.tar.gz"
    instdir="$(get_node_install_dir)"
 
    #  Download and extract the gzipped tarball.
    dldir="$OPENSHIFT_DATA_DIR/downloads"
    mkdir -p "$dldir"
 
-   echo "  - Downloading and extracting $zlink ... "
+   for zlink in "https://iojs.org/dist/v${ver}/iojs-v${ver}-linux-x64.tar.gz" \
+                "http://nodejs.org/dist/v${ver}/node-v${ver}-linux-x64.tar.gz"; do
 
-   if ! curl -L -o "$dldir/$zfile" "$zlink"; then
-      echo "  - ERROR  -- download failed for $zlink"
-      echo "  - download uri = $dldir/$zfile"
-      return 1
-   fi
+     curl -#Lfo "$dldir/$zfile" "$zlink"
+     if [ $? -ne 0 ]; then
+       rm "$dldir/$zfile"
+     else
+       (cd "$instdir"; tar -zxf "$dldir/$zfile")
+       echo "  - Done installing version $ver"
+       return 0
+     fi
+    done
 
-   (cd "$instdir"; tar -zxf "$dldir/$zfile")
-   echo "  - Done installing Node.js version $ver"
+   echo "  - ERROR  -- download failed"
+   echo "  - download = $dldir/$zfile"
+   return 1
 
 }  #  End of function  _install_nodejs.
 
