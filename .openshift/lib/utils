@@ -4,11 +4,11 @@
 #
 
 
-#  Returns the configured Node version - defaults to 0.10.39.
+#  Returns the configured Node version - defaults to 6.5.0.
 function get_node_version() {
    marker="$OPENSHIFT_REPO_DIR/.openshift/markers/NODEJS_VERSION"
    nodejs_ver=$(egrep -v "^\s*#.*" "$marker" | egrep -v "^\s*$" | tail -1)
-   echo "${nodejs_ver:-"0.10.39"}"
+   echo "${nodejs_ver:-"6.5.0"}"
 
 }  #  End of function  get_node_version.
 
