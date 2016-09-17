@@ -1,5 +1,11 @@
 # Federated Wiki OpenShift Quickstart Changes
 
+## 0.6.0
+
+* Update to the latest version of the Federated Wiki software (wiki @ 0.10.0)
+* Update default node version to 6.5.0, 6.x will soon be the LTS version...
+* Include the new Passport security module, which requires configuration - by default we fall back to serving in read-only mode.
+
 ## 0.5.0
 
 * Update to the latest version of the Federated Wiki software (wiki @ 0.7.0).
